@@ -313,3 +313,252 @@ steamrollArray([1, [2],
         [4]
     ]]
 ]);
+// Intermediate Algorithm Scripting: Binary Agents
+function binaryAgent(str) {
+    return str
+        .split(" ")
+        .map(
+            el => String
+            .fromCharCode(
+                parseInt(
+                    el, 2
+                )
+            )
+        )
+        .join("");
+}
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001");
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
+
+// Intermediate Algorithm Scripting: Everything Be True
+function truthCheck(collection, pre) {
+    // Is everyone being true?
+    return collection.every(
+        el => el[pre]
+    );
+}
+truthCheck(
+    [{
+            "user": "Tinky-Winky",
+            "sex": "male"
+        },
+        {
+            "user": "Dipsy",
+            "sex": "male"
+        },
+        {
+            "user": "Laa-Laa",
+            "sex": "female"
+        },
+        {
+            "user": "Po",
+            "sex": "female"
+        }
+    ], "sex");
+truthCheck(
+    [{
+            "user": "Tinky-Winky",
+            "sex": "male"
+        },
+        {
+            "user": "Dipsy"
+        },
+        {
+            "user": "Laa-Laa",
+            "sex": "female"
+        },
+        {
+            "user": "Po",
+            "sex": "female"
+        }
+    ], "sex")
+truthCheck([{
+            "user": "Tinky-Winky",
+            "sex": "male",
+            "age": 0
+        },
+        {
+            "user": "Dipsy",
+            "sex": "male",
+            "age": 3
+        },
+        {
+            "user": "Laa-Laa",
+            "sex": "female",
+            "age": 5
+        },
+        {
+            "user": "Po",
+            "sex": "female",
+            "age": 4
+        }
+    ],
+    "age")
+truthCheck([{
+            "name": "Pete",
+            "onBoat": true
+        },
+        {
+            "name": "Repeat",
+            "onBoat": true
+        },
+        {
+            "name": "FastForward",
+            "onBoat": null
+        }
+    ],
+    "onBoat")
+truthCheck([{
+            "name": "Pete",
+            "onBoat": true
+        },
+        {
+            "name": "Repeat",
+            "onBoat": true,
+            "alias": "Repete"
+        },
+        {
+            "name": "FastForward",
+            "onBoat": true
+        }
+    ],
+    "onBoat")
+truthCheck([{
+        "single": "yes"
+    }],
+    "single")
+truthCheck([{
+            "single": ""
+        },
+        {
+            "single": "double"
+        }
+    ],
+    "single")
+truthCheck([{
+            "single": "double"
+        },
+        {
+            "single": undefined
+        }
+    ],
+    "single")
+truthCheck([{
+            "single": "double"
+        },
+        {
+            "single": NaN
+        }
+    ],
+    "single")
+truthCheck([{
+            "single": "double"
+        },
+        {
+            "single": "double"
+        }
+    ],
+    "single")
+truthCheck([{
+            "single": "double"
+        },
+        {
+            "single": "NaN"
+        }
+    ],
+    "single")
+
+// Intermediate Algorithm Scripting: Arguments Optional
+function addTogether() {
+    //use closure to store arguments
+    let args = arguments;
+    //check if all arguments are numbers
+    if (args.length === 1 && typeof args[0] === "number") {
+        return function(arg) {
+            if (typeof arg === "number") {
+                return args[0] + arg;
+            } else {
+                return undefined;
+            }
+        }
+    }
+    //check if all arguments are numbers
+    if (args.length === 2 && typeof args[0] === "number" && typeof args[1] === "number") {
+        return args[0] + args[1];
+    }
+    return undefined;
+}
+addTogether(2, 3);
+addTogether(2)(3);
+addTogether(5)(7);
+addTogether("http://bit.ly/IqT6zt");
+addTogether(2, "3");
+addTogether(2)([3]);
+addTogether(2)([3]);
+addTogether("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+// Intermediate Algorithm Scripting: Make a Person
+function Person(firstAndLast) {
+    // Complete the method below and implement the others similarly
+    let fullName = firstAndLast.split(" ");
+    this.getFullName = function() {
+        return fullName.join(" ");
+    }
+    this.getFirstName = function() {
+        return fullName[0];
+    }
+    this.getLastName = function() {
+        return fullName[1];
+    }
+    this.setFirstName = function(first) {
+        fullName[0] = first;
+    }
+    this.setLastName = function(last) {
+        fullName[1] = last;
+    }
+    this.setFullName = function(firstAndLast) {
+        fullName = firstAndLast.split(" ");
+    }
+}
+var bob = new Person('Bob Ross');
+bob.getFullName();
+Object.keys(bob).length;
+bob instanceof Person;
+bob.getFirstName();
+bob.getLastName();
+bob.setFirstName('Haskell');
+bob.getFullName();
+bob.setLastName('Curry');
+bob.getFullName();
+bob.setFullName('Haskell Curry');
+bob.getFirstName();
+bob.getLastName();
+
+// Intermediate Algorithm Scripting: Map the Debris
+function orbitalPeriod(arr) {
+    var GM = 398600.4418;
+    var earthRadius = 6367.4447;
+    return arr.map(function(obj) {
+        var a = Math.pow(earthRadius + obj.avgAlt, 3);
+        var b = 2 * Math.PI * Math.sqrt(a / GM);
+        obj.orbitalPeriod = Math.round(b);
+        delete obj.avgAlt;
+        return obj;
+    });
+}
+orbitalPeriod([{
+    name: "sputnik",
+    avgAlt: 35873.5553
+}]);
+orbitalPeriod([{
+    name: "iss",
+    avgAlt: 413.6
+}, {
+    name: "hubble",
+    avgAlt: 556.7
+}, {
+    name: "moon",
+    avgAlt: 378632.553
+}])
