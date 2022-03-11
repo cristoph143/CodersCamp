@@ -266,3 +266,50 @@ smallestCommons([20, 19, 18, 17, 16, 15]);
 smallestCommons([2, 10]);
 smallestCommons([23, 18]);
 smallestCommons([23, 18, 60]);
+
+// Intermediate Algorithm Scripting: Drop it
+function dropElements(arr, func) {
+    // Drop them elements.
+    while (arr.length > 0 && !func(arr[0])) {
+        arr.shift();
+    }
+    return arr;
+}
+dropElements([1, 2, 3, 4], function(n) { return n >= 3; });
+dropElements([0, 1, 0, 1], function(n) { return n === 1; });
+dropElements([1, 2, 3], function(n) { return n > 0; });
+dropElements([1, 2, 3, 4], function(n) { return n > 5; });
+
+// Intermediate Algorithm Scripting: Steamroller
+function steamrollArray(arr) {
+    // I'm a steamroller, baby
+    return arr.reduce(
+        (a, b) => a
+        .concat(Array.isArray(b) ?
+            steamrollArray(b) : b), []);
+}
+steamrollArray([1, [2],
+    [3, [
+        [4]
+    ]]
+]);
+steamrollArray([1, [],
+    [3, [
+        [4]
+    ]]
+]);
+steamrollArray([1, {},
+    [3, [
+        [4]
+    ]]
+]);
+steamrollArray([1, {},
+    [3, [
+        [4]
+    ]]
+]);
+steamrollArray([1, [2],
+    [3, [
+        [4]
+    ]]
+]);
