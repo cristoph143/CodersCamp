@@ -592,3 +592,38 @@ function checkPositive(arr) {
 }
 
 checkPositive([1, 2, 3, -4, 5]);
+
+const number = [10, 50, 8, 220, 110, 11];
+
+number.some(function(currentValue) {
+    return currentValue < 10;
+});
+
+function checkPositive(arr) {
+    // Only change code below this line
+
+    return arr.some(function(currentValue) {
+        return currentValue > 0;
+    });
+    // Only change code above this line
+}
+
+checkPositive([1, 2, 3, -4, 5]);
+
+function unCurried(x, y) {
+    return x + y;
+}
+
+function curried(x) {
+    return function(y) {
+        return x + y;
+    }
+}
+
+const currieds = x => y => x + y;
+curried(1)(2);
+currieds(1)(2);
+
+const adds = x => y => z => x + y + z;
+
+console.log(adds(10)(20)(30));
