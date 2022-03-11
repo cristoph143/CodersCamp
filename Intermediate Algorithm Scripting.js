@@ -239,15 +239,30 @@ function smallestCommons(arr) {
     //check the common lowest common multiples between the arr
     //store the range of numbers in an array
     const range = [];
-
-
-
-    // return the lowest common multiple
-    return multiples[multiples.length - 1];
+    //loop through the array and push the numbers into the range array
+    for (let i = Math.min(...arr); i <= Math.max(...arr); i++) {
+        range.push(i);
+    }
+    const gcd = (a, b) => !b ? a : gcd(b, a % b);
+    const lcm = (a, b) => (a * b) / gcd(a, b);
+    //loop through the range array and find the lcm
+    let lcmResult;
+    for (let i = 0; i < range.length; i++) {
+        if (i === 0) {
+            lcmResult = range[i];
+        } else {
+            lcmResult = lcm(lcmResult, range[i]);
+        }
+    }
+    return lcmResult;
 }
 
 smallestCommons([1, 5]);
 smallestCommons([5, 1]);
 smallestCommons([1, 13]);
+smallestCommons([23, 18, 13, 6]);
+smallestCommons([1, 2, 3, 4, 5, 6]);
+smallestCommons([20, 19, 18, 17, 16, 15]);
+smallestCommons([2, 10]);
 smallestCommons([23, 18]);
 smallestCommons([23, 18, 60]);
