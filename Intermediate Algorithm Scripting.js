@@ -121,3 +121,133 @@ myReplace("This has a spellngi error", "spellngi", "spelling");
 myReplace("His name is Tom", "Tom", "john");
 myReplace("Let us get back to more Coding", "Coding", "algorithms");
 myReplace("I think we should look up there", "up", "Down");
+
+// Intermediate Algorithm Scripting: DNA Pairing
+function pairElement(str) {
+    const pairs = {
+        A: "T",
+        T: "A",
+        C: "G",
+        G: "C"
+    };
+    return str.split("").map(el => [el, pairs[el]]);
+}
+pairElement("GCG");
+pairElement("ATCGA");
+pairElement("TTGAG");
+pairElement("CTCTA");
+
+// Intermediate Algorithm Scripting: Missing letters
+function fearNotLetter(str) {
+    for (let i = 0; i < str.length; i++) {
+        if (str.charCodeAt(i) !== str.charCodeAt(0) + i) {
+            return String.fromCharCode(str.charCodeAt(0) + i);
+        }
+    }
+}
+fearNotLetter("abce");
+fearNotLetter("abcdefghjklmno");
+fearNotLetter("bcd");
+fearNotLetter("yz");
+
+// Intermediate Algorithm Scripting: Sorted Union
+function uniteUnique(arr) {
+    // Create an array to store the unique values
+    const unique = [];
+    // Loop through each array in the argument
+    for (let i = 0; i < arguments.length; i++) {
+        // Loop through each value in the array
+        for (let j = 0; j < arguments[i].length; j++) {
+            // If the value is not already in the unique array, add it
+            if (unique.indexOf(arguments[i][j]) === -1) {
+                unique.push(arguments[i][j]);
+            }
+        }
+    }
+    // Return the unique array
+    return unique;
+}
+uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]);
+uniteUnique([1, 3, 2], [1, [5]], [2, [4]]);
+uniteUnique([1, 2, 3], [5, 2, 1]);
+uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8]);
+
+// Intermediate Algorithm Scripting: Convert HTML Entities
+function convertHTML(str) {
+    const htmlEntities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&apos;"
+    };
+    return str.split("").map(el => htmlEntities[el] || el).join("");
+}
+convertHTML("Dolce & Gabbana");
+convertHTML("Hamburgers < Pizza < Tacos");
+convertHTML("Sixty > twelve");
+convertHTML('Stuff in "quotation marks"');
+convertHTML("Schindler's List");
+convertHTML("<>");
+convertHTML("abc");
+
+// Intermediate Algorithm Scripting: Sum All Odd Fibonacci Numbers
+function sumFibs(num) {
+    let prev = 0;
+    let curr = 1;
+    let result = 0;
+    while (curr <= num) {
+        if (curr % 2 !== 0) {
+            result += curr;
+        }
+        [prev, curr] = [curr, curr + prev];
+    }
+    return result;
+}
+sumFibs(4);
+sumFibs(1000);
+sumFibs(4000000);
+sumFibs(4);
+sumFibs(75024);
+
+// Intermediate Algorithm Scripting: Sum All Primes
+function sumPrimes(num) {
+    let sum = 0;
+    for (let i = 2; i <= num; i++) {
+        if (isPrime(i)) {
+            sum += i;
+        }
+    }
+    return sum;
+}
+
+function isPrime(num) {
+    for (let i = 2; i < num; i++) {
+        if (num % i === 0) {
+            return false;
+        }
+    }
+    return num > 1;
+}
+sumPrimes(10);
+sumPrimes(977);
+sumPrimes(10);
+sumPrimes(15);
+
+// Intermediate Algorithm Scripting: Smallest Common Multiple
+function smallestCommons(arr) {
+    //check the common lowest common multiples between the arr
+    //store the range of numbers in an array
+    const range = [];
+
+
+
+    // return the lowest common multiple
+    return multiples[multiples.length - 1];
+}
+
+smallestCommons([1, 5]);
+smallestCommons([5, 1]);
+smallestCommons([1, 13]);
+smallestCommons([23, 18]);
+smallestCommons([23, 18, 60]);
