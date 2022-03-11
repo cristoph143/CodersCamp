@@ -8,22 +8,22 @@ if (mailformat) {
     console.log("You have entered an invalid email address!");
 }
 
-function Animal() { }
-Animal.prototype.eat = function () { console.log("nom nom nom"); };
+function Animal() {}
+Animal.prototype.eat = function() { console.log("nom nom nom"); };
 
-function Dog() { }
+function Dog() {}
 
 // Only change code below this line
 
 // Animal should not respond to the bark() method.
 Dog.prototype = Object.create(Animal.prototype);
 // Dog should inherit the eat() method from Animal.
-Dog.prototype.eat = function () {
+Dog.prototype.eat = function() {
     console.log("crunch crunch");
     Animal.prototype.eat.call(this);
 };
 
-Dog.prototype.bark = function () { console.log("Woof!"); };
+Dog.prototype.bark = function() { console.log("Woof!"); };
 // The Dog prototype should have a bark() method.
 
 // beagle should be an instanceof Animal.
@@ -31,14 +31,14 @@ var beagle = new Dog();
 beagle.eat();
 beagle.bark();
 
-function Bird() { }
+function Bird() {}
 
-Bird.prototype.fly = function () { return "I am flying!"; };
+Bird.prototype.fly = function() { return "I am flying!"; };
 
-function Penguin() { }
+function Penguin() {}
 Penguin.prototype = Object.create(Bird.prototype);
 Penguin.prototype.constructor = Penguin;
-Penguin.prototype.fly = function () { return "Alas, I am flyings!"; };
+Penguin.prototype.fly = function() { return "Alas, I am flyings!"; };
 
 let penguin = new Penguin();
 console.log(penguin.fly());
@@ -53,8 +53,8 @@ let boat = {
     type: "race-boat"
 };
 //use mixin named glideMixin
-let glideMixin = function (obj) {
-    obj.glide = function () {
+let glideMixin = function(obj) {
+    obj.glide = function() {
         console.log("I'm using glide")
     }
 }
@@ -67,7 +67,7 @@ function Birds() {
     //create a private variable weight and assign it to 15
     let weight = 15;
     // Your code should create a method in Bird called getWeight that returns the value of the private variable weight.
-    this.getWeight = function () {
+    this.getWeight = function() {
         return weight;
     }
 }
@@ -75,19 +75,19 @@ let birdie = new Birds();
 console.log(birdie.getWeight());
 
 
-(function () {
+(function() {
     console.log("A cozy nest is ready");
 })();
 
-let motionModule = (function () {
+let motionModule = (function() {
     return {
-        glideMixin: function (obj) {
-            obj.glide = function () {
+        glideMixin: function(obj) {
+            obj.glide = function() {
                 console.log("Gliding on the water");
             };
         },
-        flyMixin: function (obj) {
-            obj.fly = function () {
+        flyMixin: function(obj) {
+            obj.fly = function() {
                 console.log("Flying, wooosh!");
             };
         }
@@ -97,15 +97,15 @@ motionModule.flyMixin(bird)
 bird.fly()
 
 let funModule =
-    (function () {
+    (function() {
         return {
-            isCuteMixin: function (obj) {
-                obj.isCute = function () {
+            isCuteMixin: function(obj) {
+                obj.isCute = function() {
                     return true;
                 };
             },
-            singMixin: function (obj) {
-                obj.sing = function () {
+            singMixin: function(obj) {
+                obj.sing = function() {
                     console.log("Singing to an awesome tune");
                 };
             }
@@ -164,24 +164,24 @@ console.log(
     tea4BlackTeamFCC
 );
 // tabs is an array of titles of each site open within the window
-const Window = function (tabs) {
+const Window = function(tabs) {
     this.tabs = tabs; // We keep a record of the array inside the object
 };
 
 // When you join two windows into one window
-Window.prototype.join = function (otherWindow) {
+Window.prototype.join = function(otherWindow) {
     this.tabs = this.tabs.concat(otherWindow.tabs);
     return this;
 };
 
 // When you open a new tab at the end
-Window.prototype.tabOpen = function (tab) {
+Window.prototype.tabOpen = function(tab) {
     this.tabs.push('new tab'); // Let's open a new tab for now
     return this;
 };
 
 // When you close a tab
-Window.prototype.tabClose = function (index) {
+Window.prototype.tabClose = function(index) {
 
     // Only change code below this line
 
@@ -248,8 +248,7 @@ remove(add(bookList, "A Brief History of Time"), "On The Electrodynamics of Movi
 console.log(bookList);
 
 // The global variable
-const watchList = [
-    {
+const watchList = [{
         "Title": "Inception",
         "Year": "2010",
         "Rated": "PG-13",
@@ -375,3 +374,117 @@ const ratings = watchList.map(movie => {
 
 console.log(JSON.stringify(ratings1));
 console.log(JSON.stringify(ratings));
+// The global variable
+const s = [23, 65, 98, 5];
+
+Array.prototype.myMap = function(callback) {
+    const newArray = [];
+    // Only change code below this line
+    for (let i = 0; i < this.length; i++) {
+        newArray.push(callback(this[i]));
+    }
+    // Only change code above this line
+    return newArray;
+};
+
+const new_s = s.myMap(function(item) {
+    return item * 2;
+});
+
+// Only change code below this line
+
+const filteredList = watchList
+    .map(movie => {
+        return {
+            title: movie["Title"],
+            rating: movie["imdbRating"]
+        };
+    })
+    .filter(movie => {
+        return parseFloat(movie.rating) >= 8.0;
+    });
+
+// Only change code above this line
+
+console.log(filteredList);
+
+// The global variable
+const s1 = [23, 65, 98, 5];
+
+Array.prototype.myFilter = function(callback) {
+    // Only change code below this line
+    const newArray = [];
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i])) {
+            newArray.push(this[i]);
+        }
+    }
+    // Only change code above this line
+    return newArray;
+};
+
+const new_s1 = s.myFilter(function(item) {
+    return item % 2 === 1;
+});
+
+function sliceArray(anim, beginSlice, endSlice) {
+    // Only change code below this line
+    return anim.slice(beginSlice, endSlice);
+    // Only change code above this line
+}
+
+const inputAnim = ["Cat", "Dog", "Tiger", "Zebra", "Ant"];
+sliceArray(inputAnim, 1, 3);
+
+function nonMutatingSplice(cities) {
+    // Only change code below this line
+    cities.splice(3);
+    return cities.slice(0, 3);
+    // Only change code above this line
+}
+
+const inputCities = ["Chicago", "Delhi", "Islamabad", "London", "Berlin"];
+nonMutatingSplice(inputCities);
+
+function nonMutatingConcat(original, attach) {
+    // Only change code below this line
+    return original.concat(attach);
+    // Only change code above this line
+}
+
+const firsts = [1, 2, 3];
+const seconds = [4, 5];
+nonMutatingConcat(firsts, seconds);
+
+function nonMutatingPush(original, newItem) {
+    // Only change code below this line
+    return original.concat(newItem);
+    // Only change code above this line
+}
+
+const first = [1, 2, 3];
+const second = [4, 5];
+nonMutatingPush(first, second);
+
+function getRating(watchList) {
+    // Only change code below this line
+    let averageRating_reduce;
+
+    averageRating_reduce = watchList.reduce(
+        (data, {
+            Director: director,
+            imdbRating: rating
+        }) => {
+            if (director === 'Christopher Nolan') {
+                data.count++;
+                data.sum += Number(rating);
+            }
+            return data;
+        }, { sum: 0, count: 0 }
+    );
+    const averageRating = averageRating_reduce.sum / averageRating_reduce.count;
+    // Only change code above this line
+    return averageRating;
+}
+
+console.log(getRating(watchList));
