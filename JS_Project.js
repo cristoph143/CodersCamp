@@ -114,85 +114,59 @@ telephoneCheck("(555)5(55?)-5555")
 
 //Cash Register
 function checkCashRegister(price, cash, cid) {
-    let change;
-    //check if the cash-in-drawer is less than the change due, or cannot return the exact change
-    if (cash < price) {
+    let change = cash - price;
+    //get the total cash in the register
+    let totalCash = cid.reduce((acc, curr) => {
+        return acc + curr[1];
+    }, 0);
+    //check if the cash in the register is enough
+    if (totalCash < change) {
         return {
             status: "INSUFFICIENT_FUNDS",
             change: []
         };
-    } else if (cash === price) {
+    }
+    if (totalCash === change) {
         return {
             status: "CLOSED",
             change: cid
         };
-    } else {
-        //create an array of the currency values
-        let currency = [
-            ["ONE HUNDRED", 100.00],
-            ["TWENTY", 20.00],
-            ["TEN", 10.00],
-            ["FIVE", 5.00],
-            ["ONE", 1.00],
-            ["QUARTER", 0.25],
-            ["DIME", 0.10],
-            ["NICKEL", 0.05],
-            ["PENNY", 0.01]
-        ];
-        //subract the cash from the price
-        change = cash - price;
-        //create an array to hold the change
-        let changeArr = [];
-        //loop through the currency array
-        for (let i = 0; i < currency.length; i++) {
-            //create a variable to hold the currency value
-            let currencyValue = currency[i][1];
-            //create a variable to hold the currency name
-            let currencyName = currency[i][0];
-            //create a variable to hold the currency in the drawer
-            let currencyInDrawer = cid[i][1];
-            //create a variable to hold the currency in the drawer as a number
-            let currencyInDrawerNum = parseFloat(currencyInDrawer);
-            //create a variable to hold the change as a number
-            let changeNum = parseFloat(change);
-            //create a variable to hold the change in the drawer
-            let changeInDrawer = 0;
-            //create a variable to hold the change in the drawer as a number
-            let changeInDrawerNum = 0;
-            //check if the change is greater than the currency in the drawer
-            if (changeNum >= currencyValue) {
-                //check if the currency in the drawer is greater than the currency value
-                if (currencyInDrawerNum >= currencyValue) {
-                    //subtract the currency value from the change
-                    change = change - currencyValue;
-                    //subtract the currency value from the currency in the drawer
-                    currencyInDrawer = currencyInDrawer - currencyValue;
-                    //add the currency value to the change in the drawer
-                    changeInDrawer = changeInDrawer + currencyValue;
-                    //add the currency value to the change in the drawer as a number
-                    changeInDrawerNum = changeInDrawerNum + currencyValue;
-                    //add the currency value to the change in the drawer as a string
-                    changeInDrawer = changeInDrawer.toFixed(2);
-                    //add the currency value to the change in the drawer as a string
-                    changeInDrawer = changeInDrawer.toString();
-                    //add the currency value to the change in the drawer as a string
-                    changeInDrawer = changeInDrawer.replace(".", ",");
-                    //add the currency value to the change in the drawer as a string
-                    changeInDrawer = changeInDrawer.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    //add the currency value to the change in the drawer as a string
-                    changeInDrawer = changeInDrawer.replace(",", ".");
-                }
-            }
-            //add the currency name and change in the drawer to the change array
-            changeArr.push([currencyName, changeInDrawer]);
+    }
+    //reverse the cid array
+    var sorted = cid.reverse();
+    console.log(sorted);
+    //get the change
+    let changeArr = [];
+    let changeTotal = 0;
+    for (let i = 0; i < sorted.length; i++) {
+        //while change is greater than the current denomination
+        while (change >= sorted[i][1]) {
+            //add the denomination to the change array
+            changeArr.push(sorted[i]);
+            //subtract the denomination from the change
+            change -= sorted[i][1];
+            //add the denomination to the change total
+            changeTotal += sorted[i][1];
         }
+        if (changeTotal >= change) {
+            break;
+        }
+    }
+    //check if the change is enough
+    if (changeTotal < change) {
         return {
-            status: "OPEN",
-            change: changeArr
+            status: "INSUFFICIENT_FUNDS",
+            change: []
         };
     }
+    //return the change
+    return {
+        status: "OPEN",
+        change: changeArr
+    };
+    console.log(sorted);
 }
-checkCashRegister(19.5, 20, [
+console.log(checkCashRegister(19.5, 20, [
     ["PENNY", 1.01],
     ["NICKEL", 2.05],
     ["DIME", 3.1],
@@ -202,8 +176,8 @@ checkCashRegister(19.5, 20, [
     ["TEN", 20],
     ["TWENTY", 60],
     ["ONE HUNDRED", 100]
-]);
-checkCashRegister(19.5, 20, [
+]))
+console.log(checkCashRegister(19.5, 20, [
     ["PENNY", 1.01],
     ["NICKEL", 2.05],
     ["DIME", 3.1],
@@ -213,8 +187,8 @@ checkCashRegister(19.5, 20, [
     ["TEN", 20],
     ["TWENTY", 60],
     ["ONE HUNDRED", 100]
-])
-checkCashRegister(3.26, 100, [
+]))
+console.log(checkCashRegister(3.26, 100, [
     ["PENNY", 1.01],
     ["NICKEL", 2.05],
     ["DIME", 3.1],
@@ -224,8 +198,8 @@ checkCashRegister(3.26, 100, [
     ["TEN", 20],
     ["TWENTY", 60],
     ["ONE HUNDRED", 100]
-])
-checkCashRegister(19.5, 20, [
+]))
+console.log(checkCashRegister(19.5, 20, [
     ["PENNY", 0.01],
     ["NICKEL", 0],
     ["DIME", 0],
@@ -235,8 +209,8 @@ checkCashRegister(19.5, 20, [
     ["TEN", 0],
     ["TWENTY", 0],
     ["ONE HUNDRED", 0]
-])
-checkCashRegister(19.5, 20, [
+]))
+console.log(checkCashRegister(19.5, 20, [
     ["PENNY", 0.01],
     ["NICKEL", 0],
     ["DIME", 0],
@@ -246,8 +220,8 @@ checkCashRegister(19.5, 20, [
     ["TEN", 0],
     ["TWENTY", 0],
     ["ONE HUNDRED", 0]
-])
-checkCashRegister(19.5, 20, [
+]))
+console.log(checkCashRegister(19.5, 20, [
     ["PENNY", 0.5],
     ["NICKEL", 0],
     ["DIME", 0],
@@ -257,4 +231,4 @@ checkCashRegister(19.5, 20, [
     ["TEN", 0],
     ["TWENTY", 0],
     ["ONE HUNDRED", 0]
-])
+]))
